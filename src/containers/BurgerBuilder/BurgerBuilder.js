@@ -3,6 +3,13 @@ import Aux from '../../hoc/Aux'
 import  Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 
+
+const ingridientPrices = {
+    salad: 20,
+    cheese: 40,
+    bacon: 80,
+    meat: 80
+} 
 class BurgerBuilder extends Component {
     state = {
         ingridients: {
@@ -10,15 +17,57 @@ class BurgerBuilder extends Component {
             salad : 0,
             bacon: 0,
             meat: 0,               
-        }
+        },
+        totalPrice: 50
     }
     
+
+    addIngridient = (type) => {
+        const oldCount = this.state.ingridients[type];
+        const updatedCount = oldCount + 1;
+        const updatedIngridients= {
+            ...this.state.ingridients
+        };
+        updatedIngridients[type] = updatedCount;
+        const priceAddition = ingridientPrices[type];
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice + priceAddition;
+        this.setState({
+            totalPrice: newPrice , ingridients: updatedIngridients
+        })
+    }
+
+removeIngridient = (type) => {
+     const oldCount = this.state.ingridients[type];
+     if(oldCount <= 0)
+     {
+          return;
+     }
+        const updatedCount = oldCount - 1;
+        const updatedIngridients= {
+            ...this.state.ingridients
+        };
+        updatedIngridients[type] = updatedCount;
+        const priceDeduction = ingridientPrices[type];
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice - priceDeduction;
+        this.setState({
+            totalPrice: newPrice , ingridients: updatedIngridients
+        })
+
+}
     
     render() {
+        const disAbleInfo= {
+            ...this.state.ingridients
+        };
+        for(let key in disAbleInfo){
+            disAbleInfo[key] = disAbleInfo[key] <= 0
+        }
         return(
             <Aux>
                  <Burger ingridients={this.state.ingridients}/>
-                 <BuildControls/>
+                 <BuildControls addIngridient={this.addIngridient} removeIngridient={this.removeIngridient}/>
             </Aux>
         ); 
     }
