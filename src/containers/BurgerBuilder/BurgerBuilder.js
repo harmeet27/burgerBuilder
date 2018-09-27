@@ -67,7 +67,10 @@ removeIngridient = (type) => {
         return(
             <Aux>
                  <Burger ingridients={this.state.ingridients}/>
-                 <BuildControls addIngridient={this.addIngridient} removeIngridient={this.removeIngridient}/>
+                 <BuildControls addIngridient={this.addIngridient} 
+                 removeIngridient={this.removeIngridient}
+                 disAbleInfo ={disAbleInfo}
+                 price={this.state.totalPrice}/>
             </Aux>
         ); 
     }

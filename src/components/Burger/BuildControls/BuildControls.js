@@ -10,8 +10,17 @@ const controls = [ {label : 'Salad' , type: 'salad'},
 
 const BuildControls = (props) => (
      <div className = {classes.BuildControls}>
+         <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
          {
-             controls.map(ctrl => ( <BuildControl addIngridient={() => props.addIngridient(ctrl.type)}  removeIngridient={() => props.removeIngridient(ctrl.type)} key={ctrl.label} label={ctrl.label}/>))
+             controls.map(ctrl => ( 
+                 <BuildControl 
+                 addIngridient={() => props.addIngridient(ctrl.type)} 
+                 removeIngridient={() => props.removeIngridient(ctrl.type)} 
+                 key={ctrl.label} 
+                 label={ctrl.label}
+                 disabled={props.disAbleInfo[ctrl.type]}
+                 />))
+                 
          }
      </div>
 );
