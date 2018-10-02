@@ -93,6 +93,7 @@ removeIngridient = (type) => {
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancel}>
                 <OrderSummary purchaseCanceled={this.purchaseCancel} 
+                 totalPrice={this.state.totalPrice}
                  purchaseContinue={this.purchaseContinue} igredients={this.state.ingridients}/></Modal>
                  <Burger ingridients={this.state.ingridients}/>
                  <BuildControls addIngridient={this.addIngridient} 
